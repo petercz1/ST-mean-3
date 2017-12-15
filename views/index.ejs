@@ -3,7 +3,7 @@
 
 <head>
     <title>Demo</title>
-<link rel="icon" href="https://undertale.aminoapps.com/static/bower/emojify.js/images/emoji/fish.png">
+    <link rel="icon" href="https://undertale.aminoapps.com/static/bower/emojify.js/images/emoji/fish.png">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
 
@@ -12,8 +12,67 @@
 
 </head>
 
-<body>
+<body ng-app="employees">
     <h1>Demo</h1>
+
+    <div ng-controller="data">
+        <h2>CREATE</h2>
+
+        <h4>{{message}}</h4>
+
+        <form>
+            <input type="text" ng-model="input_name" placeholder="name">
+            <input type="text" ng-model="input_gender" placeholder="gender">
+
+            <select ng-model="input_job">
+                <option ng-repeat="job in jobs">{{job}}</option>
+            </select>
+
+            <button class="btn btn-primary" ng-click="create()">create employee</button>
+        </form>
+        <h2>READ</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>_id</th>
+                    <th>name</th>
+                    <th>gender</th>
+                    <th>job</th>
+                    <th>important?</th>
+                    <th>UPDATE</th>
+                    <th>DELETE</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="employee in employees">
+
+                <tr ng-class="{'male': employee.gender == 'Male', 'female': employee.gender == 'Female'}">
+                    <td>{{employee._id}}</td>
+                    <td>
+                        <input type="text" ng-model="employee.name">
+                    </td>
+                    <td>
+                        <input type="text" ng-model="employee.gender">
+                    </td>
+                    <td>
+                        <input type="text" ng-model="employee.job">
+                    </td>
+                    <td>
+                        <span ng-if="employee.job == 'CEO'">
+                            <img src="images/check.png" alt="">
+                        </span>
+                    </td>
+                    <td>
+                        <button ng-click="update(employee)">update</button>
+                    </td>
+                    <td>
+                        <button ng-click="delete(employee)">delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
 
 </body>
 
